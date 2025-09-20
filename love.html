@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Surprise for You</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Quicksand:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-text: #ffffff;
+            --button-bg: #ffffff22;
+            --button-hover-bg: #ffffff33;
+            --glow-color: #ff8fd8;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Quicksand', sans-serif;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--primary-text);
+            text-align: center;
+            background: linear-gradient(-45deg, #4b0082, #8a2be2, #d53a9d, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            overflow: hidden;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            position: relative;
+            width: 90%;
+            max-width: 800px; /* Increased max-width */
+        }
+
+        .screen {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.8s ease-in-out;
+        }
+
+        .screen.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        
+        h1 {
+            font-family: 'Great Vibes', cursive;
+            font-size: clamp(3rem, 10vw, 5rem);
+            font-weight: normal;
+            margin-bottom: 30px;
+            text-shadow: 0 0 10px var(--glow-color), 0 0 20px var(--glow-color);
+        }
+        
+        p {
+            font-size: clamp(1.5rem, 5vw, 2rem);
+            font-family: 'Great Vibes', cursive;
+            text-shadow: 0 0 5px var(--glow-color);
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        button {
+            font-family: 'Great Vibes', cursive;
+            font-size: 1.8rem;
+            background: var(--button-bg);
+            color: var(--primary-text);
+            border: 1px solid var(--primary-text);
+            padding: 15px 35px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: background-color 0.3s, box-shadow 0.3s;
+            backdrop-filter: blur(5px);
+        }
+
+        button:hover {
+            background: var(--button-hover-bg);
+            box-shadow: 0 0 15px var(--glow-color);
+        }
+
+        video {
+            width: 100%;
+            max-width: 800px;
+            border-radius: 15px;
+            box-shadow: 0 0 25px #00000088;
+            border: 2px solid var(--primary-text);
+        }
+
+        /* Styling for the final message */
+        .note-card {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 30px 40px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .message-body {
+            font-family: 'Quicksand', sans-serif;
+            font-size: clamp(1rem, 4vw, 1.2rem);
+            line-height: 1.7;
+            text-align: left;
+            text-shadow: none;
+            font-weight: 500;
+        }
+
+        .signature {
+            font-family: 'Great Vibes', cursive;
+            font-size: clamp(1.8rem, 5vw, 2.2rem);
+            text-align: right;
+            margin-top: 30px;
+            text-shadow: 0 0 5px var(--glow-color);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <div id="initial-question" class="screen active">
+            <h1>Just for you...</h1>
+            <p>But first, are you alone?</p>
+            <div class="button-group">
+                <button id="yes-btn">Yes</button>
+                <button id="no-btn">No</button>
+            </div>
+        </div>
+
+        <div id="privacy-prompt" class="screen">
+            <p>Please go someplace private.<br>This is a secret meant only for your eyes.</p>
+            <div class="button-group">
+                <button id="alone-now-btn">Okay, I'm alone now</button>
+            </div>
+        </div>
+
+        <div id="come-closer-prompt" class="screen">
+            <h1>Come a little closer...</h1>
+        </div>
+        
+        <div id="video-container" class="screen">
+            <video id="surprise-video" controls>
+                <source src="this will make your day better.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+        
+        <div id="final-message" class="screen">
+            <div class="note-card">
+                <p class="message-body">
+                    My dear Kashish Sharma,
+                    <br><br>
+                    Just a random message to tell you that you are the best stupid! Your energy is radiant, and your spirit is made of pure sunshine. I hope you're feeling how truly amazing and loved you are.
+                    <br><br>
+                    I know aaj ka din shayad tumhare liye bekaar tha, but you manage, you always do, and you did. So betu chin up, the world is lucky to have you in it.
+                </p>
+                <p class="signature">
+                    Cheering for you, always!
+                    <br>
+                    Sajal Sharma
+                </p>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        const initialScreen = document.getElementById('initial-question');
+        const privacyScreen = document.getElementById('privacy-prompt');
+        const closerScreen = document.getElementById('come-closer-prompt');
+        const videoScreen = document.getElementById('video-container');
+        const finalMessageScreen = document.getElementById('final-message');
+        
+        const surpriseVideo = document.getElementById('surprise-video');
+
+        const yesBtn = document.getElementById('yes-btn');
+        const noBtn = document.getElementById('no-btn');
+        const aloneNowBtn = document.getElementById('alone-now-btn');
+
+        
+        function showScreen(screenToShow) {
+            document.querySelectorAll('.screen').forEach(screen => {
+                screen.classList.remove('active');
+            });
+            screenToShow.classList.add('active');
+        }
+
+      
+        function startTheSurprise() {
+            showScreen(closerScreen);
+
+            setTimeout(() => {
+                showScreen(videoScreen);
+                surpriseVideo.play().catch(error => {
+                    console.log("Autoplay prevented:", error);
+                });
+            }, 3000); // 3 seconds
+        }
+
+        surpriseVideo.addEventListener('ended', () => {
+            showScreen(finalMessageScreen);
+        });
+
+
+        noBtn.addEventListener('click', () => {
+            showScreen(privacyScreen);
+        });
+
+        yesBtn.addEventListener('click', startTheSurprise);
+        aloneNowBtn.addEventListener('click', startTheSurprise);
+    </script>
+</body>
+</html>
