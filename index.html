@@ -39,7 +39,7 @@
         .container {
             position: relative;
             width: 90%;
-            max-width: 800px; /* Increased max-width */
+            max-width: 800px;
         }
 
         .screen {
@@ -105,7 +105,6 @@
             border: 2px solid var(--primary-text);
         }
 
-        /* Styling for the final message */
         .note-card {
             background: rgba(0, 0, 0, 0.2);
             padding: 30px 40px;
@@ -153,6 +152,13 @@
             </div>
         </div>
 
+        <div id="volume-prompt" class="screen">
+            <p>One last thing...<br>Please turn up the volume.</p>
+            <div class="button-group">
+                <button id="volume-done-btn">Done</button>
+            </div>
+        </div>
+
         <div id="come-closer-prompt" class="screen">
             <h1>Come a little closer...</h1>
         </div>
@@ -186,6 +192,7 @@
     <script>
         const initialScreen = document.getElementById('initial-question');
         const privacyScreen = document.getElementById('privacy-prompt');
+        const volumeScreen = document.getElementById('volume-prompt'); 
         const closerScreen = document.getElementById('come-closer-prompt');
         const videoScreen = document.getElementById('video-container');
         const finalMessageScreen = document.getElementById('final-message');
@@ -195,8 +202,8 @@
         const yesBtn = document.getElementById('yes-btn');
         const noBtn = document.getElementById('no-btn');
         const aloneNowBtn = document.getElementById('alone-now-btn');
+        const volumeDoneBtn = document.getElementById('volume-done-btn'); 
 
-        
         function showScreen(screenToShow) {
             document.querySelectorAll('.screen').forEach(screen => {
                 screen.classList.remove('active');
@@ -204,8 +211,11 @@
             screenToShow.classList.add('active');
         }
 
-      
         function startTheSurprise() {
+            showScreen(volumeScreen);
+        }
+
+        function startVideoSequence() {
             showScreen(closerScreen);
 
             setTimeout(() => {
@@ -213,13 +223,12 @@
                 surpriseVideo.play().catch(error => {
                     console.log("Autoplay prevented:", error);
                 });
-            }, 3000); // 3 seconds
+            }, 3000); 
         }
 
         surpriseVideo.addEventListener('ended', () => {
             showScreen(finalMessageScreen);
         });
-
 
         noBtn.addEventListener('click', () => {
             showScreen(privacyScreen);
@@ -227,6 +236,8 @@
 
         yesBtn.addEventListener('click', startTheSurprise);
         aloneNowBtn.addEventListener('click', startTheSurprise);
+        volumeDoneBtn.addEventListener('click', startVideoSequence); 
+
     </script>
 </body>
 </html>
